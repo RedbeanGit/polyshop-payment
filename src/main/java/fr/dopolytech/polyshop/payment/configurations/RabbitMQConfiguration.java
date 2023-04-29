@@ -16,7 +16,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public TopicExchange paymentExchange() {
-        return new TopicExchange("paymentExchange");
+        return new TopicExchange("inventoryExchange");
     }
 
     @Bean
