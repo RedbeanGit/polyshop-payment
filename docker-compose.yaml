@@ -1,11 +1,6 @@
 version: '3'
 
 services:
-  eureka:
-    image: redbeandock/polyshop-discovery-server:latest
-    ports:
-      - 8761:8761
-  
   rabbitmq:
     image: rabbitmq:management
     ports:
@@ -44,15 +39,12 @@ services:
       - MONGODB_DATABASE=admin
       - MONGODB_USERNAME=catalog
       - MONGODB_PASSWORD=catalog
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
     depends_on:
       - mongo_catalog
-      - eureka
       - rabbitmq
     ports:
       - 8081:8080
@@ -62,15 +54,12 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
     depends_on:
       - redis
-      - eureka
       - rabbitmq
     ports:
       - 8082:8080
@@ -83,15 +72,12 @@ services:
       - POSTGRES_DATABASE=order
       - POSTGRES_USERNAME=order
       - POSTGRES_PASSWORD=order
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
     depends_on:
       - postgres
-      - eureka
       - rabbitmq
     ports:
       - 8083:8080
@@ -104,15 +90,12 @@ services:
       - MONGODB_DATABASE=admin
       - MONGODB_USERNAME=inventory
       - MONGODB_PASSWORD=inventory
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
     depends_on:
       - mongo_inventory
-      - eureka
       - rabbitmq
     ports:
       - 8084:8080
@@ -120,14 +103,11 @@ services:
   shipping:
     image: redbeandock/polyshop-shipping:latest
     environment:
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
     depends_on:
-      - eureka
       - rabbitmq
     ports:
       - 8086:8080
